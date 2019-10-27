@@ -1,15 +1,24 @@
-from flask import Flask, jsonify, request, make_response
+from flask import jsonify, request, make_response
+from marshmallow.exceptions import ValidationError
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from marshmallow.exceptions import ValidationError
 from flask_migrate import Migrate
+from dotenv import load_dotenv
+import os
+
+from app import app
 
 migrate = Migrate(compare_type=True)
-app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-    'mssql+pyodbc://sa:Alizar457@localhost:1433/planetary?driver=ODBC+Driver+17+for+SQL+Server'
+# Load env vars
+APP_ROOT = os.path.join(os.path.dirname(__file__), '..')
+dotenv_path = os.path.join(APP_ROOT, '.env')
+load_dotenv(dotenv_path)
+
+DB_CONN_STR = os.getenv('DB_CONN_STR')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://' + DB_CONN_STR + '?driver=ODBC+Driver+17+for+SQL+Server'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['secret_key'] = os.getenv('SECRET_KEY')
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -20,7 +29,7 @@ class Planet(db.Model):
     __tablename__ = 'planet'
 
     planet_id = db.Column(db.Integer, primary_key=True)
-    planet_name = db.Column(db.String, unique=True, nullable=False)
+    planet_name = db.Column(db.String, nullable=False)
     home_star = db.Column(db.String, nullable=False)
     mass = db.Column(db.Float)
     radius = db.Column(db.Float)
@@ -34,7 +43,7 @@ class Satellite(db.Model):
     __tablename__ = 'satellite'
 
     satellite_id = db.Column(db.Integer, primary_key=True)
-    satellite_name = db.Column(db.String, unique=True, nullable=False)
+    satellite_name = db.Column(db.String, nullable=False)
     is_regular = db.Column(db.Boolean)
     radius = db.Column(db.Float)
     discovery_year = db.Column(db.Integer, nullable=False)
@@ -108,13 +117,18 @@ def runtime_error_handler(err):
 
 
 @app.route('/')
-def hello_world():
-    return jsonify(message='Hello World!')
+def index():
+    # Use os.getenv("key") to get environment variables
+    app_name = os.getenv("APP_NAME")
+
+    if app_name:
+        return jsonify(message=f"Hello from {app_name} running in a Docker container behind Nginx!")
+    return jsonify(message="Hello from Flask")
 
 
 @app.route('/planets', methods=['GET'])
 def planets():
-    return jsonify(planets_schema.dump(Planet.query.all()))
+    return make_response(jsonify(planets_schema.dump(Planet.query.all())))
 
 
 @app.route('/planets', methods=['POST'])
@@ -212,7 +226,3 @@ def delete_satellite(id: int):
     db.session.delete(satellite)
     db.session.commit()
     return make_response({'message': 'Satellite deleted successfully!'}, 200)
-
-
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)

@@ -12,6 +12,8 @@ flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 pyodbc = "*"
 flask-migrate = "*"
+uwsgi = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
