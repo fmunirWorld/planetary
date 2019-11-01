@@ -1,10 +1,24 @@
 version: "3.7"
 
+volumes:
+  fl_volume:
+
+
 services:
+
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server:latest
+    restart: always
+    ports:
+      - "1433:1433"
+    volumes: 
+      - fl_volume:/var/lib//var/opt/mssql/data
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Alizar457
 
   flask:
     build: ./flask
-    container_name: flask
     restart: always
     environment:
       - APP_NAME=Planetary
@@ -13,7 +27,9 @@ services:
 
   nginx:
     build: ./nginx
-    container_name: nginx
     restart: always
     ports:
       - "80:80"
+    depends_on:
+      - mssql-server
+      - flask
