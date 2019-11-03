@@ -1,7 +1,7 @@
 version: "3.7"
 
 volumes:
-  fl_volume:
+  db_volume:
 
 
 services:
@@ -9,21 +9,30 @@ services:
   mssql-server:
     image: mcr.microsoft.com/mssql/server:latest
     restart: always
-    ports:
-      - "1433:1433"
     volumes: 
-      - fl_volume:/var/lib//var/opt/mssql/data
+      - db_volume:/var/opt/mssql/data
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Alizar457
+      - MSSQL_TCP_PORT=1433
+    ports:
+      - "1433:1433"
 
   flask:
     build: ./flask
     restart: always
     environment:
-      - APP_NAME=Planetary
+      - APP_NAME=FL Planetary
     expose:
-      - 8080
+      - 5000
+
+  django:
+    build: ./django
+    restart: always
+    environment:
+      - DJ_APP_NAME=DJ Planetary
+    expose:
+      - 8000
 
   nginx:
     build: ./nginx
@@ -33,3 +42,4 @@ services:
     depends_on:
       - mssql-server
       - flask
+      - django
