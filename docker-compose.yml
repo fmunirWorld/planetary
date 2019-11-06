@@ -1,22 +1,24 @@
 version: "3.7"
 
 volumes:
-  db_volume:
+  db_sys_vol:
+  db_usr_vol:
 
 
 services:
 
   mssql-server:
-    image: mcr.microsoft.com/mssql/server:latest
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu	
     restart: always
     volumes: 
-      - db_volume:/var/opt/mssql/data
+      - db_sys_vol:/var/opt/mssql
+      - db_usr_vol:/var/opt/sqlserver
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Alizar457
       - MSSQL_TCP_PORT=1433
-    ports:
-      - "1433:1433"
+    expose:
+      - 1433
 
   flask:
     build: ./flask
@@ -25,6 +27,8 @@ services:
       - APP_NAME=FL Planetary
     expose:
       - 5000
+    depends_on:
+      - mssql-server
 
   django:
     build: ./django
@@ -33,6 +37,8 @@ services:
       - DJ_APP_NAME=DJ Planetary
     expose:
       - 8000
+    depends_on:
+      - mssql-server
 
   
   springboot:
@@ -42,6 +48,8 @@ services:
       - SB_APP_NAME=SB Planetary
     expose:
       - 8080
+    depends_on:
+      - mssql-server
 
   nginx:
     build: ./nginx
@@ -49,7 +57,6 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - mssql-server
       - flask
       - django
       - springboot
