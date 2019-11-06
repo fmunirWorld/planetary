@@ -34,6 +34,15 @@ services:
     expose:
       - 8000
 
+  
+  springboot:
+    build: ./springboot
+    restart: always
+    environment:
+      - SB_APP_NAME=SB Planetary
+    expose:
+      - 8080
+
   nginx:
     build: ./nginx
     restart: always
@@ -43,3 +52,4 @@ services:
       - mssql-server
       - flask
       - django
+      - springboot
