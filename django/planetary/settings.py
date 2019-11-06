@@ -80,11 +80,11 @@ DATABASES = {
         'NAME': 'dj_planetary',
         'USER': 'sa',
         'PASSWORD': 'Alizar457',
-        'HOST': 'localhost',
+        'HOST': 'mssql-server',
         'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
-            'MARS_Connection': 'True',
+            'MARS_Connection': 'False',
         },
     },
 }
@@ -124,3 +124,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
