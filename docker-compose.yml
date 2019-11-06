@@ -8,7 +8,7 @@ volumes:
 services:
 
   mssql-server:
-    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu	
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
     restart: always
     volumes: 
       - db_sys_vol:/var/opt/mssql
@@ -40,7 +40,6 @@ services:
     depends_on:
       - mssql-server
 
-  
   springboot:
     build: ./springboot
     restart: always
