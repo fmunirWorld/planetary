@@ -11,7 +11,7 @@ RUN apt-get -y update && apt-get install -y build-essential libssl-dev libffi-de
 
 RUN apt-get -y update && apt-get -y install apt-transport-https ca-certificates
 
-# Begin of mandatory layers for Microsoft ODBC Driver 13 for Linux
+# Begin of mandatory layers for Microsoft ODBC Driver 17 for Linux
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
 RUN apt-get -y update && ACCEPT_EULA=Y apt-get install -y msodbcsql17
