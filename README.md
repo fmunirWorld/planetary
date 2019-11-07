@@ -12,7 +12,7 @@ Run in this directory:
 ```
 docker-compose up --build -d
 ```
-It will build the image for each service and run their containers.
+It will build the image for each service mentioned in `docker-compose.yml` file and run their containers in detached mode.
 ### Create databases
 Once Docker build images completes and services are up & running, you need to create database for each application.
 1. List all the running containers
@@ -27,7 +27,7 @@ docker exec -ti <container_id|container_name> bash
 ```
 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Alizar457
 ```
-4. From the **sqlcmd** command prompt, paste the following Transact-SQL command to create a databases
+4. From the **sqlcmd** command prompt, paste the following Transact-SQL command to create all three databases
 ```SQL
 CREATE DATABASE fl_planetary;
 CREATE DATABASE dj_planetary;
