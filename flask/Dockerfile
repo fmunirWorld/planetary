@@ -12,16 +12,17 @@ RUN apt-get -y update && apt-get install -y build-essential libssl-dev libffi-de
 RUN apt-get -y update && apt-get -y install apt-transport-https ca-certificates
 
 # Begin of mandatory layers for Microsoft ODBC Driver 17 for Linux
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
-RUN apt-get -y update && ACCEPT_EULA=Y apt-get install -y msodbcsql17
-RUN apt-get install -y unixodbc-dev
-# End of mandatory layers for Microsoft ODBC Driver 13 for Linux
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl https://packages.microsoft.com/config/debian/9/prod.list > \
+    /etc/apt/sources.list.d/mssql-release.list
+RUN apt-get -y update && ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev
+# End of mandatory layers for Microsoft ODBC Driver 17 for Linux
 
 # Set the working directory to /app
 WORKDIR /app
 
 # Install the dependencies
+RUN pip install pip --upgrade
 ADD ./requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
