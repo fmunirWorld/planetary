@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+
 # Only exists if Bazel was run
 /bazel-out
 
@@ -23,6 +24,7 @@ speed-measure-plugin*.json
 *.launch
 .settings/
 *.sublime-workspace
+.editorconfig
 
 # IDE - VSCode
 .vscode
@@ -69,13 +71,26 @@ testem.log
 .DS_Store
 Thumbs.db
 
-
 __pycache__/
 
-
+# Language - Java
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-laravel/
+
+# Language - PHP
+public/hot/
+public/storage/
+storage/*.key
+vendor/
+tests/
+phpunit.xml
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+*.sqlite
+*.sqlite-journal

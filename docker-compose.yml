@@ -60,6 +60,16 @@ services:
     depends_on:
       - mssql-server
 
+  laravel:
+    build: ./laravel
+    restart: always
+    environment:
+      - LR_APP_NAME=LR Planetary
+    expose:
+      - 9000
+    depends_on:
+      - mssql-server
+
   nginx:
     build: ./nginx
     restart: always
@@ -69,3 +79,4 @@ services:
       - flask
       - django
       - springboot
+      - laravel
