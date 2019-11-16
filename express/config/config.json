@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "sa",
+    "password": "Alizar457",
+    "database": "ex_planetary",
+    "host": "localhost",
+    "dialect": "mssql"
+  },
+  "production": {
+    "username": "sa",
+    "password": "Alizar457",
+    "database": "ex_planetary",
+    "host": "mssql-server",
+    "dialect": "mssql"
+  }
+}
