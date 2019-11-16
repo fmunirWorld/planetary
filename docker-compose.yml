@@ -50,6 +50,16 @@ services:
     depends_on:
       - mssql-server
 
+  express:
+    build: ./express
+    restart: always
+    environment:
+      - EX_APP_NAME=EX Planetary
+    expose:
+      - 4000
+    depends_on:
+      - mssql-server
+
   nginx:
     build: ./nginx
     restart: always
