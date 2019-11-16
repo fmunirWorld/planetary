@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 routes(app);
 
 app.get('/', (req, res) => {
-  const appName = env['APP_NAME'];
+  const appName = env['EX_APP_NAME'];
   if (appName) {
-    res.send({message: `Hello from ${appName} running in a Docker container behind Nginx!"`});
+    res.send({message: `Hello from ${appName} running in a Docker container behind Nginx!`});
   } else {
     res.send({message: "Hello from Node and Express!"});
   }
