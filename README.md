@@ -1,9 +1,9 @@
 # planetary demo Project
 Bench-marking popular Web Frameworks for Microservices. planetary demonstration project is comprised of:
 * a NGINX reverse proxy server
-* Microservices written in Django, Flask and Spring Boot
+* Microservices written in Django, Flask, Spring Boot, Express and Laravel
 * MS SQL Server databases for each Microservice
-![docker services architecture](images/docker-compose%20services.png)
+![docker services architecture](images/docker-services-architecture.png)
 
 ## Setup
 
@@ -29,41 +29,55 @@ docker exec -ti <container_id|container_name> bash
 ```
 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Alizar457
 ```
-4. From the **sqlcmd** command prompt, paste the following Transact-SQL command to create all three databases
+4. From the **sqlcmd** command prompt, paste the following Transact-SQL command to create all five databases
 ```SQL
 CREATE DATABASE fl_planetary;
 CREATE DATABASE dj_planetary;
 CREATE DATABASE sb_planetary;
+CREATE DATABASE ex_planetary;
+CREATE DATABASE lr_planetary;
 GO
 ```
 5. `QUIT` from **sqlcmd** command prompt and then `exit` SQL Server container.
 ### Run database migrations
-1. Attach to the container running Flask app
+Run database migrations for each app running inside their own containers.
+
+#### 1. Run database migrations for Flask app
+```
+docker exec <container_id|container_name> flask db_create
+```
+
+#### 2. Run database migrations for Django app
++ Attach to the container running Django app
 ```
 docker exec -ti <container_id|container_name> bash
 ```
-2. Run database migrations
-```
-flask db_create
-```
-3. `exit` Flask app container
-4. Attach to the container running Django app
-```
-docker exec -ti <container_id|container_name> bash
-```
-5. Run database migrations
++ Run database migrations
 ```
 python manage.py makemigrations
 python manage.py migrate
 ```
-6. Collect static files
++ Collect static files
 ```
 python manage.py collectstatic --noinput
 ```
-7. `exit` Django app container
++ `exit` Django app container
+
+#### 3. Run database migrations for Laravel app
+```
+docker exec <container_id|container_name> php artisan migrate
+```
+
+#### 4. Run database migrations for Express app
+```
+docker exec <container_id|container_name> npx sequelize-cli db:migrate
+```
+
 > Migrations for Spring Boot app will be initialized automatically by Hibernate/JPA.
 
-## REST APIs
+## Browse/Consume REST APIs
 1. The URL for Flask app is: `http://localhost/flask`. Documentation for REST calls: [planetary API in Flask](flask/README.md)
 2. The URL for Django app is: `http://localhost/django`. Documentation for REST calls: [planetary API in Django](django/README.md)
 3. The URL for Spring Boot app is: `http://localhost/springboot`. Documentation for REST calls: [planetary API in Spring Boot](springboot/README.md)
+4. The URL for Express app is: `http://localhost/express`. Documentation for REST calls: [planetary API in Express](express/README.md)
+5. The URL for Laravel app is: `http://localhost/laravel`. Documentation for REST calls: [planetary API in Laravel](laravel/README.md)
