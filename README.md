@@ -71,7 +71,7 @@ docker exec <container_id|container_name> php artisan migrate
 
 #### 4. Run database migrations for Express app
 ```
-docker exec <container_id|container_name> npx sequelize-cli db:migrate
+docker exec <container_id|container_name> npx sequelize-cli db:migrate --env production
 ```
 
 > Migrations for Spring Boot app will be initialized automatically by Hibernate/JPA.
