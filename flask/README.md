@@ -31,7 +31,11 @@ __3. Get a single planet__
 ```HTTP
 GET /planets/{planet_id}
 ```
-__4. Update a single planet__
+__4. Get satellites of a single planet__
+```HTTP
+GET /planets/{planet_id}/satellites
+```
+__5. Update a single planet__
 ```HTTP
 PUT /planets/{planet_id}
 
@@ -46,7 +50,7 @@ Content-type: application/json
 	"distance": 354.98e6
 }
 ```
-__5. Delete a single planet__
+__6. Delete a single planet__
 ```HTTP
 DELETE /planets/{planet_id}
 ```
