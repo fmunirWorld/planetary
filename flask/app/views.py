@@ -153,6 +153,15 @@ def planet_detail(id: int):
         return jsonify(message='That planet does not exist.'), 404
 
 
+@app.route('/planets/<int:id>/satellites', methods=['GET'])
+def planet_satellites(id: int):
+    satellites = Satellite.query.filter_by(planet_id=id).all()
+    if satellites:
+        return jsonify(satellites_schema.dump(satellites))
+    else:
+        return jsonify(message='That planet does not exist.'), 404
+
+
 @app.route('/planets/<int:id>', methods=['PUT', 'PATCH'])
 def update_planet(id: int):
     planet_json = request.get_json()
