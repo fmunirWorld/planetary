@@ -156,10 +156,7 @@ def planet_detail(id: int):
 @app.route('/planets/<int:id>/satellites', methods=['GET'])
 def planet_satellites(id: int):
     satellites = Satellite.query.filter_by(planet_id=id).all()
-    if satellites:
-        return jsonify(satellites_schema.dump(satellites))
-    else:
-        return jsonify(message='That planet does not exist.'), 404
+    return jsonify(satellites_schema.dump(satellites))
 
 
 @app.route('/planets/<int:id>', methods=['PUT', 'PATCH'])
@@ -183,7 +180,7 @@ def delete_planet(id: int):
 
     db.session.delete(planet)
     db.session.commit()
-    return {'message': 'Planet deleted successfully!'}
+    return make_response({'message': 'Planet deleted successfully!'}, 204)
 
 
 @app.route('/satellites', methods=['GET'])
@@ -234,4 +231,4 @@ def delete_satellite(id: int):
 
     db.session.delete(satellite)
     db.session.commit()
-    return make_response({'message': 'Satellite deleted successfully!'}, 200)
+    return make_response({'message': 'Satellite deleted successfully!'}, 204)
