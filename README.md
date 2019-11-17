@@ -1,6 +1,7 @@
 # planetary demo Project
 Bench-marking popular Web Frameworks for Microservices. planetary demonstration project is comprised of:
 * a NGINX reverse proxy server
+* an Angular SPA running behind NGINX
 * Microservices written in Django, Flask, Spring Boot, Express and Laravel
 * MS SQL Server databases for each Microservice
 ![docker services architecture](images/docker-services-architecture.jpg)
