@@ -92,11 +92,11 @@
 
   <!-- Terminal -->
   <div class="terminal" [ngSwitch]="selection.value">
-    <pre *ngSwitchDefault>http://your_host_name/flask</pre>
-    <pre *ngSwitchCase="'django'">http://your_host_name/django</pre>
-    <pre *ngSwitchCase="'springboot'">http://your_host_name/springboot</pre>
-    <pre *ngSwitchCase="'laravel'">http://your_host_name/laravel</pre>
-    <pre *ngSwitchCase="'express'">http://your_host_name/express</pre>
+    <pre *ngSwitchDefault>http://{{hostName}}/flask</pre>
+    <pre *ngSwitchCase="'django'">http://{{hostName}}/django</pre>
+    <pre *ngSwitchCase="'springboot'">http://{{hostName}}/springboot</pre>
+    <pre *ngSwitchCase="'laravel'">http://{{hostName}}/laravel</pre>
+    <pre *ngSwitchCase="'express'">http://{{hostName}}/express</pre>
   </div>
 
   <!-- Links -->

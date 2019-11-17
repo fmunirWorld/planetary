@@ -9,6 +9,7 @@ import {environment} from '../../environments/environment';
 export class HomeComponent implements OnInit {
 
   production = environment.production;
+  hostName = window.location.hostname;
   constructor() {}
 
   ngOnInit() {}

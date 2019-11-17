@@ -1,3 +1,68 @@
 <div class="container">
-  <mat-card>Planets works!</mat-card>
+  <div style="margin-left: 15px; margin-bottom: 10px;">
+    <button mat-raised-button color="primary" (click)="openDialog()">Add New Planet</button>
+  </div>
+  <mat-card>
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{dataSource.filteredData.indexOf(element) + 1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="serial">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.planetId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="planetName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.planetName | titlecase}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="homeStar">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Home Star </th>
+          <td mat-cell *matCellDef="let element"> {{element.homeStar | titlecase}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mass">
+          <th mat-header-cell *matHeaderCellDef> Mass </th>
+          <td mat-cell *matCellDef="let element"> {{element.mass.toExponential(4) }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="radius">
+          <th mat-header-cell *matHeaderCellDef> Radius </th>
+          <td mat-cell *matCellDef="let element"> {{element.radius.toExponential(4)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="distance">
+          <th mat-header-cell *matHeaderCellDef> Distance </th>
+          <td mat-cell *matCellDef="let element"> {{element.distance.toExponential(4)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="noOfSatellites">
+          <th mat-header-cell *matHeaderCellDef> No. of Satellites </th>
+          <td mat-cell *matCellDef="let element"> {{element.noOfSatellites}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element" (click)="deletePlanet(element)">
+            <button mat-mini-fab color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index;"></tr>
+      </table>
+      <mat-progress-bar mode="indeterminate" *ngIf="showProgressBar"></mat-progress-bar>
+      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </div>
+  </mat-card>
 </div>

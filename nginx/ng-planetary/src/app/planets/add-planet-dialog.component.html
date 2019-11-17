@@ -1,0 +1,35 @@
+<div>
+  <h1 mat-dialog-title>Add new planet</h1>
+  <div mat-dialog-content>
+    <mat-form-field style="width: 100%;">
+      <input matInput type="text" placeholder="Planet Name" [(ngModel)]="data.planetName">
+    </mat-form-field>
+
+    <table cellspacing="0">
+      <tr>
+        <td style="padding-right: 8px">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Home Star" [(ngModel)]="data.homeStar">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput type="number" placeholder="Mass" [(ngModel)]="data.mass">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-right: 8px"><mat-form-field>
+          <input matInput type="number" placeholder="Radius" [(ngModel)]="data.radius">
+        </mat-form-field></td>
+        <td><mat-form-field>
+          <input matInput type="number" placeholder="Distance" [(ngModel)]="data.distance">
+        </mat-form-field></td>
+      </tr>
+    </table>
+  </div>
+  <div mat-dialog-actions style="float: right">
+    <button mat-raised-button (click)="onCancelClick()">Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Create</button>
+  </div>
+</div>

@@ -1,3 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap');
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 .container {
-  margin: 25px;
+  margin: 25px 50px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.actions-cell {
+  padding: auto;
+  background: #c2c3c4;
+  mat-icon {
+    padding: 0;
+    margin: 0;
+  }
 }
