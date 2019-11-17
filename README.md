@@ -82,3 +82,9 @@ docker exec <container_id|container_name> npx sequelize-cli db:migrate --env pro
 3. The URL for Spring Boot app is: `http://localhost/springboot`. Documentation for REST calls: [planetary API in Spring Boot](springboot/README.md)
 4. The URL for Express app is: `http://localhost/express`. Documentation for REST calls: [planetary API in Express](express/README.md)
 5. The URL for Laravel app is: `http://localhost/laravel`. Documentation for REST calls: [planetary API in Laravel](laravel/README.md)
+
+## Contributing
+Contribute to this codebase. Help to update, optimize and fix bugs.
++ Create same Microservies in other Web Frameworks like ASP.NET, ASP.NET Core and Rails etc.
++ Create front-end SPA using React, Vue and Gatsby etc.
++ Create mobile applications using cross-platform and hybrid app development frameworks like Ionic or React Native.
