@@ -10,71 +10,15 @@ Bench-marking popular Web Frameworks for Microservices. planetary demonstration 
 
 ### Pre-requisites
 Install [Docker CE](https://docs.docker.com/install/) on your favourite platform. [Docker Compose](https://docs.docker.com/compose/) will be installed automatically. Make sure you have the latest version of [Compose](https://docs.docker.com/compose/install/).
+
 ### Building and Running
-Run in this directory:
+1. Run in this directory:
 ```
 docker-compose up --build -d
 ```
-It will build the image for each service mentioned in `docker-compose.yml` file and run their containers in detached mode.
-### Create databases
-Once Docker build images completes and services are up & running, you need to create database for each application.
-1. List all the running containers
-```
-docker ps
-```
-2. Attach to the container running MS SQL Server
-```
-docker exec -ti <container_id|container_name> bash
-```
-3. Connect to the SQL Server instance using `sqlcmd` utility
-```
-/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Alizar457
-```
-4. From the **sqlcmd** command prompt, paste the following Transact-SQL command to create all five databases
-```SQL
-CREATE DATABASE fl_planetary;
-CREATE DATABASE dj_planetary;
-CREATE DATABASE sb_planetary;
-CREATE DATABASE ex_planetary;
-CREATE DATABASE lr_planetary;
-GO
-```
-5. `QUIT` from **sqlcmd** command prompt and then `exit` SQL Server container.
-### Run database migrations
-Run database migrations for each app running inside their own containers.
+>It will build the docker image for each service mentioned in `docker-compose.yml` file and run their instances in detached mode. To scale a service, pass command line argument `--scale SERVICE=n` where SERVICE is the name of the service and n is the number of instances. 
 
-#### 1. Run database migrations for Flask app
-```
-docker exec <container_id|container_name> flask db_create
-```
-
-#### 2. Run database migrations for Django app
-+ Attach to the container running Django app
-```
-docker exec -ti <container_id|container_name> bash
-```
-+ Run database migrations
-```
-python manage.py makemigrations
-python manage.py migrate
-```
-+ Collect static files
-```
-python manage.py collectstatic --noinput
-```
-+ `exit` Django app container
-
-#### 3. Run database migrations for Laravel app
-```
-docker exec <container_id|container_name> php artisan migrate
-```
-
-#### 4. Run database migrations for Express app
-```
-docker exec <container_id|container_name> npx sequelize-cli db:migrate --env production
-```
-
-> Migrations for Spring Boot app will be initialized automatically by Hibernate/JPA.
+2. Execute `./init_setup.sh` bash script to run database migrations for each of the applications.
 
 ## Browse/Consume REST APIs
 1. The URL for Flask app is: `http://localhost/flask`. Documentation for REST calls: [planetary API in Flask](flask/README.md)
@@ -86,5 +30,3 @@ docker exec <container_id|container_name> npx sequelize-cli db:migrate --env pro
 ## Contributing
 Contribute to this codebase. Help to update, optimize and fix bugs.
 + Create same Microservies in other Web Frameworks like ASP.NET, ASP.NET Core and Rails etc.
-+ Create front-end SPA using React, Vue and Gatsby etc.
-+ Create mobile applications using cross-platform and hybrid app development frameworks like Ionic or React Native.
