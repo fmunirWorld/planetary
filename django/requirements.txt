@@ -1,16 +1,16 @@
 -i https://pypi.org/simple/
-asgiref==3.2.10
+asgiref==3.3.1
 click==7.1.2
 django-filter==2.2.0
 django-mssql-backend==2.8.0
-django==3.0.7
+django==3.1.6
 djangorestframework==3.11.0
 h11==0.9.0
 httptools==0.1.1 ; sys_platform != 'win32' and sys_platform != 'cygwin' and platform_python_implementation != 'PyPy'
 psycopg2==2.8.5
 pyodbc==4.0.30
-pytz==2020.1
-sqlparse==0.3.1
+pytz==2021.1
+sqlparse==0.4.1
 uvicorn==0.11.7
-uvloop==0.14.0 ; sys_platform != 'win32' and sys_platform != 'cygwin' and platform_python_implementation != 'PyPy'
+uvloop==0.15.2 ; sys_platform != 'win32' and sys_platform != 'cygwin' and platform_python_implementation != 'PyPy'
 websockets==8.1
